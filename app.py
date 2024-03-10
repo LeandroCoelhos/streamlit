@@ -1,3 +1,5 @@
+!pip install plotly
+
 import streamlit as st
 import plotly.graph_objects as go
 import pandas as pd
@@ -31,9 +33,7 @@ variacao = [0] + [valores[i] - valores[i-1] for i in range(1, len(valores))]
 # Título do aplicativo
 st.markdown('<h1>Acompanhamento das Variações da Carteira de Crédito Itaú BBA</h1>', unsafe_allow_html=True)  # Título com HTML
 
-# Botão para selecionar entre as opções ['LARGE', 'MIDDLE', 'ULTRA']
-cran_2 = st.selectbox('Segmento:', ['Todos',  'Ultra', 'Large', 'Middle'])
-fam_prod = st.selectbox('Familia Produtos:', ['Todos', 'cred', 'rot', 'outro'])
+
 
 # Exibindo gráfico de linha
 #st.subheader('')
@@ -56,6 +56,45 @@ fig2.update_layout(title_text='Variação de um Mês para o Outro (Bilhões)')
 st.plotly_chart(fig2)
 
 # Exibindo as estatísticas básicas do conjunto de dados (opcional)
+
+
+
+#------------------------------------parte 2 ---------------------
+
+
+# Botão para selecionar entre as opções ['LARGE', 'MIDDLE', 'ULTRA']
+cran_2 = st.selectbox('Segmento:', ['Large',  'Ultra', 'Large', 'Middle'])
+fam_prod = st.selectbox('Familia Produtos:', ['Todos', 'cred', 'rot', 'outro'])
+
+# Dados do gráfico de linha
+meses = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez']
+valores = [40, 41, 42, 42, 43, 45, 46, 48, 49, 50, 52, 53]
+
+# Dados do gráfico de variação
+variacao = [0] + [valores[i] - valores[i-1] for i in range(1, len(valores))]
+
+
+# Exibindo gráfico de linha
+#st.subheader('')
+fig1 = go.Figure()
+fig1.add_trace(go.Scatter(x=meses, y=valores, mode='lines+markers', name='Volume da Carteira'))
+fig1.update_layout(title_text='Volume da Carteira de Crédito - Large',
+                  legend=dict(
+                        font=dict(
+                            size=30  # Tamanho desejado da fonte da legenda
+                        )
+    )
+)
+st.plotly_chart(fig1)
+
+# Exibindo gráfico de variação
+#st.subheader('Variação de um Mês para o Outro (Bilhões)')
+fig2 = go.Figure()
+fig2.add_trace(go.Scatter(x=meses, y=variacao, mode='lines+markers', line=dict(color='#ff7f00'), name='Variação Mensal'))
+fig2.update_layout(title_text='Variação de um Mês para o Outro - Large')
+st.plotly_chart(fig2)
+
+
 
 
 st.subheader('Principais contratos que contribuiram para essas variações:')
@@ -117,3 +156,57 @@ st.dataframe(df.head(10))
 
 # Adicione mais visualizações ou análises conforme necessário
 # Você pode também adicionar mais widgets interativos, gráficos, etc.
+
+
+
+
+
+
+
+
+
+
+import plotly.graph_objects as go
+
+# Dados e legendas
+dados = [14224361825, 282476, 10669606976, 82073899, 3554754849, 70775]
+legendas = ['Variação Total', 'Ticket Variação Total', 'Variações Acima do Esperado', 'Ticket Variação Acima Esperado', 'Variações por Juros', 'Ticket Juros']
+
+# Cores para cada barra
+cores = ['#7f7f7f', '#7f7f7f', '#ffa500', '#ffa500', '#ffa07a', '#ffa07a']
+
+# Criando o gráfico de barras com dois eixos
+fig3 = go.Figure()
+
+# Adicionando barras ao gráfico
+fig3.add_trace(go.Bar(
+    x=legendas[::2],  # Legendas das colunas pares
+    y=dados[::2],  # Dados das colunas pares
+    text=dados[::2],
+    textposition='auto',
+    marker=dict(color=cores[::2]),
+    name='Eixo Direito'
+))
+
+fig3.add_trace(go.Bar(
+    x=legendas[1::2],  # Legendas das colunas ímpares
+    y=dados[1::2],  # Dados das colunas ímpares
+    text=dados[1::2],
+    textposition='auto',
+    marker=dict(color=cores[1::2]),
+    name='Eixo Esquerdo',
+    yaxis='y2'  # Associando ao eixo da direita (y2)
+))
+
+# Adicionando título e rótulos aos eixos
+fig3.update_layout(
+    title='Large - Variações Diárias da Carteira - Outubro de 2023',
+    xaxis=dict(title='Legendas'),
+    #yaxis=dict(title='Dado (Bilhões)', side='left', position=0.05),
+    yaxis2=dict(title='Dado (Milhões)', overlaying='y', side='right', position=0.95),
+    barmode='group'
+)
+
+
+
+st.plotly_chart(fig3)
