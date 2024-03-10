@@ -199,7 +199,7 @@ fig3.add_trace(go.Bar(
 
 # Adicionando título e rótulos aos eixos
 fig3.update_layout(
-    title='Large - Variações Diárias da Carteira - Outubro de 2023',
+    title='Large - Variações Diárias da Carteira - Novembro de 2023',
     xaxis=dict(title='Legendas'),
     #yaxis=dict(title='Dado (Bilhões)', side='left', position=0.05),
     yaxis2=dict(title='Dado (Milhões)', overlaying='y', side='right', position=0.95),
