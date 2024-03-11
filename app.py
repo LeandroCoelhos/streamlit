@@ -20,7 +20,7 @@ titulo_style = """
 
 # Incluindo o banner com altura reduzida
 st.markdown(titulo_style, unsafe_allow_html=True)  # Aplicando o estilo ao título
-st.image('banner.jpg', use_column_width=True)  # Substitua pelo caminho da sua imagem
+#st.image('banner.jpg', use_column_width=True)  # Substitua pelo caminho da sua imagem
 
 # Dados do gráfico de linha
 meses = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez']
@@ -30,7 +30,7 @@ valores = [93, 95, 96, 98, 99, 104, 105, 108, 110, 111, 113, 116]
 variacao = [0] + [valores[i] - valores[i-1] for i in range(1, len(valores))]
 
 # Título do aplicativo
-st.markdown('<h1>Acompanhamento das Variações da Carteira de Crédito Itaú BBA</h1>', unsafe_allow_html=True)  # Título com HTML
+#st.markdown('<h1>Acompanhamento das Variações da Carteira de Crédito Itaú BBA</h1>', unsafe_allow_html=True)  # Título com HTML
 
 
 
@@ -164,48 +164,3 @@ st.dataframe(df.head(10))
 
 
 
-
-import plotly.graph_objects as go
-
-# Dados e legendas
-dados = [14224361825, 282476, 10669606976, 82073899, 3554754849, 70775]
-legendas = ['Variação Total', 'Ticket Variação Total', 'Variações Acima do Esperado', 'Ticket Variação Acima Esperado', 'Variações por Juros', 'Ticket Juros']
-
-# Cores para cada barra
-cores = ['#7f7f7f', '#7f7f7f', '#ffa500', '#ffa500', '#ffa07a', '#ffa07a']
-
-# Criando o gráfico de barras com dois eixos
-fig3 = go.Figure()
-
-# Adicionando barras ao gráfico
-fig3.add_trace(go.Bar(
-    x=legendas[::2],  # Legendas das colunas pares
-    y=dados[::2],  # Dados das colunas pares
-    text=dados[::2],
-    textposition='auto',
-    marker=dict(color=cores[::2]),
-    name='Eixo Direito'
-))
-
-fig3.add_trace(go.Bar(
-    x=legendas[1::2],  # Legendas das colunas ímpares
-    y=dados[1::2],  # Dados das colunas ímpares
-    text=dados[1::2],
-    textposition='auto',
-    marker=dict(color=cores[1::2]),
-    name='Eixo Esquerdo',
-    yaxis='y2'  # Associando ao eixo da direita (y2)
-))
-
-# Adicionando título e rótulos aos eixos
-fig3.update_layout(
-    title='Large - Variações Diárias da Carteira - Novembro de 2023',
-    xaxis=dict(title='Legendas'),
-    #yaxis=dict(title='Dado (Bilhões)', side='left', position=0.05),
-    yaxis2=dict(title='Dado (Milhões)', overlaying='y', side='right', position=0.95),
-    barmode='group'
-)
-
-
-
-st.plotly_chart(fig3)
