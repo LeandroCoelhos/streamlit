@@ -23,7 +23,7 @@ data = load_data()
 
 # Exibindo o DataFrame
 st.write("DataFrame Original:")
-editable_df = st.dataframe(data, editable=True)
+editable_df = st.data_editor(data, num_rows="dynamic")
 
 # Permitindo que o usuário edite os campos
 if st.button("Salvar Alterações"):
