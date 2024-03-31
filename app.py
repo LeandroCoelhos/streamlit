@@ -5,7 +5,7 @@ import pandas as pd
 # Função para carregar os dados
 # ela reconhece que chamou essa função uma ez com esses parametros e não chama mais na segunda carga
 @st.cache_data(ttl=3600, show_spinner="Carregando o DF...") #elimina os cados a cada x tempo e faz com que sejam recarregados
-def load_data():
+def load_data(input_text):
     time.sleep(3)
     # Simulando o carregamento dos dados de um arquivo
     data = {
@@ -16,8 +16,9 @@ def load_data():
     df = pd.DataFrame(data)
     return df
 
+input_text = st.text_input("Digite algo:")
 # Carregando os dados
-data = load_data()
+data = load_data(input_text)
 
 #time.sleep(5)
 
