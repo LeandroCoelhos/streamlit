@@ -16,6 +16,7 @@ def load_data(input_text):
     df = pd.DataFrame(data)
     return df
 
+input_text = 'a'
 input_text = st.text_input("Digite algo:")
 # Carregando os dados
 data = load_data(input_text)
