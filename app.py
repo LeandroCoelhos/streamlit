@@ -6,7 +6,7 @@
 import streamlit as st
 import pandas as pd
 
-for i in 100000:
+for i in range(100000):
     if i//100:
         print(i)
 # Função para carregar os dados
