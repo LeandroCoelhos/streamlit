@@ -1,14 +1,7 @@
-
-'''
-
-'''
-
+import time
 import streamlit as st
 import pandas as pd
 
-for i in range(100000):
-    if i//100:
-        print(i)
 # Função para carregar os dados
 @st.cache
 def load_data():
@@ -24,9 +17,11 @@ def load_data():
 # Carregando os dados
 data = load_data()
 
+time.sleep(5)
+
 # Exibindo o DataFrame
 st.write("DataFrame Original:")
-editable_df = st.data_editor(data, num_rows="dynamic")
+editable_df = st.data_editor(data, num_rows="dynamic", on_change=load_data)
 
 # Permitindo que o usuário edite os campos
 if st.button("Salvar Alterações"):
