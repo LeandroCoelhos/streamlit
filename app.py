@@ -3,8 +3,10 @@ import streamlit as st
 import pandas as pd
 
 # Função para carregar os dados
-@st.cache
+# ela reconhece que chamou essa função uma ez com esses parametros e não chama mais na segunda carga
+@st.cache_data(ttl=3600, show_spinner="Carregando o DF...") #elimina os cados a cada x tempo e faz com que sejam recarregados
 def load_data():
+    time.sleep(3)
     # Simulando o carregamento dos dados de um arquivo
     data = {
         'Name': ['Alice', 'Bob', 'Charlie'],
@@ -17,7 +19,7 @@ def load_data():
 # Carregando os dados
 data = load_data()
 
-time.sleep(5)
+#time.sleep(5)
 
 # Exibindo o DataFrame
 st.write("DataFrame Original:")
