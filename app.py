@@ -163,7 +163,7 @@ import streamlit as st
 import pandas as pd
 
 # Função para carregar os dados
-@st.cache
+@st.cache_data
 def load_data():
     # Simulando o carregamento dos dados de um arquivo
     data = {
